@@ -42,13 +42,13 @@ class MysticSquare:
         self.running = True
         self.blocks = []
         self.labels = []
-        self.font = pygame.font.Font("freesansbold.ttf", 50)
+        self.font = pygame.font.SysFont("freesansbold.ttf", 50)
         self.icon = pygame.image.load('icon.png')
 
         # Colors
-        self.bg_color = pygame.Color('#7C83FD')
-        self.fg_color = pygame.Color('#88FFF7')
-        self.text_color = pygame.Color('#DF5E5E')
+        self.bg_color = pygame.Color('#97E5EF')
+        self.fg_color = pygame.Color('#F0134D')
+        self.text_color = pygame.Color('#E4FBFF')
 
         # Window
         self.block_size = 100
@@ -91,7 +91,7 @@ class MysticSquare:
         """Draws the blocks with text on them on to pygame window."""
         for block, text in zip(self.blocks, self.labels):
             if block != 0:
-                pygame.draw.rect(self.screen, self.fg_color, block)
+                pygame.draw.rect(self.screen, self.fg_color, block, border_radius=20)
                 self.screen.blit(text[0], text[1])
 
     def possible_moves(self, root: bool = False, state=None) -> list:
@@ -197,6 +197,7 @@ class MysticSquare:
 
         :param moves: Number of moves to shuffle.
         """
+        print("Shuffled the Puzzle randomly.")
         root_copy = None
         if moves is None:
             if self.puzzle_shape < 4:
@@ -275,8 +276,14 @@ class MysticSquare:
 
 
 if __name__ == '__main__':
+    """
+    Mouse Clicks:
+        left button: To Move the blocks Manually
+        scroll button: To Shuffle the puzzle randomly.
+        right button: To Solve the puzzle.
+    """
     try:
-        puzzle = MysticSquare(shape=3, shuffle=True, sleep_time=0.5, algorithm="bfs")
+        puzzle = MysticSquare(shape=3, shuffle=False, sleep_time=0.5, algorithm="bfs")
         puzzle.main()
     except AttributeError as error:
         print(error)
